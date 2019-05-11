@@ -1,19 +1,41 @@
+ul, ol{
+    list-style: none;
+}
+*{
+    margin: 0;
+    padding: 0;
+}
+
 #xxx{
-    background: green;
     display: block;
 }
 
+.icon {
+    width: 1em; height: 1em;
+    vertical-align: -0.15em;
+    fill: currentColor;
+    overflow: hidden;
+ }
+
 body{
-    margin: 0;
+    overflow: hidden;
 }
 
 .actions{
     position: fixed;/* 浮动定位 */
-    bottom: 0;
+    top: 0;
     left: 0;
+    padding: 20px;
 }
 
-.actions > #brush{
+.actions svg{
+    width: 1.5em;
+    height: 1.5em;
+    transition-duration: 0.3s;
+    margin: 0 5px;
+}
+
+/* .actions > #brush{
     display: none;
 }
 
@@ -23,4 +45,40 @@ body{
 
 .actions.x > #eraser{
     display: none;
+} */
+.actions svg.active{
+    fill: red;
+    transform: scale(1.2);
+    
+}
+
+.colors{
+    position: fixed;
+    top: 60px;
+    left: 22px;
+    /* border: 1px solid red; */
+}
+
+.colors > li{
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.25);
+    margin: 10px 0;
+    transition-duration: 0.3s;
+}
+
+.colors > li.red{
+    background: red;
+}
+.colors > li.green{
+    background: green;
+}
+.colors > li.blue{
+    background: blue;
+}
+
+.colors > li.active{
+    box-shadow: 0 0 3px rgba(0, 0, 0, 1);
+    transform: scale(1.2);
 }

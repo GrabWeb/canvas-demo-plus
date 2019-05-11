@@ -6,13 +6,26 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
     <link rel="stylesheet" href="./style.css">
+    <script src="//at.alicdn.com/t/font_1185881_xvf9ww7tryk.js"></script>
     <script src="./main.js"></script>
 </head>
 <body>
     <canvas id="xxx" width=300 height=300></canvas>
     <div id="actions" class="actions">
-        <button id="eraser">橡皮擦</button>
-        <button id="brush">画笔</button>
+        <svg id="brush" class="active icon" aria-hidden="true">
+            <use xlink:href="#icon-pen2"></use>
+        </svg>
+        <svg id="eraser" class="icon" aria-hidden="true">
+            <use xlink:href="#icon-eraser"></use>
+        </svg>
+        <!-- <button id="eraser">橡皮擦</button>
+        <button id="brush">画笔</button> -->
     </div>
+
+    <ol class="colors">
+        <li id="red" class="red active"></li>
+        <li id="green" class="green"></li>
+        <li id="blue" class="blue"></li>
+    </ol>
 </body>
 </html>

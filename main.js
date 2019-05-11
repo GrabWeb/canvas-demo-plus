@@ -10,14 +10,46 @@ window.onload = function(){
     /************************************/
 
     var eraserEnabled = false;
-    eraser.onclick = function(){
-
-        eraserEnabled = true;
-        actions.className = 'actions x';   
-    }
     brush.onclick = function(){
         eraserEnabled = false;
-        actions.className = 'actions';
+        brush.classList.add('active');
+        eraser.classList.remove('active');
+    }
+    eraser.onclick = function(){
+        eraserEnabled = true;
+        eraser.classList.add('active');
+        brush.classList.remove('active');
+    }
+    // eraser.onclick = function(){
+
+    //     eraserEnabled = true;
+    //     actions.className = 'actions x';   
+    // }
+    // brush.onclick = function(){
+    //     eraserEnabled = false;
+    //     actions.className = 'actions';
+    // }
+
+    red.onclick = function(){
+        context.fillStyle = 'red';
+        context.strokeStyle = 'red';
+        red.classList.add('active');
+        green.classList.remove('active');
+        blue.classList.remove('active');
+    }
+    green.onclick = function(){
+        context.fillStyle = 'green';
+        context.strokeStyle = 'green';
+        green.classList.add('active');
+        red.classList.remove('active');
+        blue.classList.remove('active');
+    }
+    blue.onclick = function(){
+        context.fillStyle = 'blue';
+        context.strokeStyle = 'blue';
+        blue.classList.add('active');
+        green.classList.remove('active');
+        red.classList.remove('active');
     }
 
     
@@ -52,22 +84,22 @@ window.onload = function(){
         if(document.body.ontouchstart !== undefined){
             //触屏设备
             canvas.ontouchstart = function(event){
-                console.log('开始触摸')
+                //console.log('开始触摸')
                 //console.log(event)
                 var x = event.touches[0].clientX;
                 var y = event.touches[0].clientY;
-                console.log(x,y)
+                //console.log(x,y)
                 using = true;
         
                 if(eraserEnabled){
                     context.clearRect(x-5, y-5, 10, 10);
                 }else{
                     lastPoint = {'x': x,'y': y};
-                    //drawCircle(x, y, 1);
+                    drawCircle(x, y, 1);
                 }
             }
             canvas.ontouchmove = function(){
-                console.log('触摸移动')
+                //console.log('触摸移动')
                 var x = event.touches[0].clientX;
                 var y = event.touches[0].clientY;
                 
@@ -82,7 +114,7 @@ window.onload = function(){
                 }else{
                     
                     var newPoint = {'x': x,'y': y};
-                    //drawCircle(x, y, 1);
+                    drawCircle(x, y, 1);
                     drawLine(lastPoint.x, lastPoint.y, newPoint.x, newPoint.y);
             
                     //不停更新当前点，防止出现每个点都只和第一点连接
@@ -91,7 +123,7 @@ window.onload = function(){
                 }
             }
             canvas.ontouchend = function(){
-                console.log('完毕')
+                //console.log('完毕')
                 using = false;
             }
         }else{
@@ -107,7 +139,7 @@ window.onload = function(){
                     context.clearRect(x-5, y-5, 10, 10);
                 }else{
                     lastPoint = {'x': x,'y': y};
-                    //drawCircle(x, y, 1);
+                    drawCircle(x, y, 1);
                 }
         
             }
@@ -127,7 +159,7 @@ window.onload = function(){
                 }else{
                     
                     var newPoint = {'x': x,'y': y};
-                    //drawCircle(x, y, 1);
+                    drawCircle(x, y, 1);
                     drawLine(lastPoint.x, lastPoint.y, newPoint.x, newPoint.y);
             
                     //不停更新当前点，防止出现每个点都只和第一点连接
@@ -147,7 +179,8 @@ window.onload = function(){
 
     function drawCircle(x, y, radius){
         context.beginPath();
-        context.fillStyle = 'black';
+        //添加颜色后去掉试验使用色
+        //context.fillStyle = 'black';
         context.arc(x, y, radius, 0, Math.PI * 2);
         context.fill();
     }
@@ -155,7 +188,8 @@ window.onload = function(){
     function drawLine(x1, y1, x2, y2) {
 
         context.beginPath();
-        context.strokeStyle = 'black';
+        //添加颜色后去掉试验使用色
+        //context.strokeStyle = 'black';
         context.moveTo(x1, y1); //起点
         context.lineWidth = 5;
         context.lineTo(x2, y2); //终点
