@@ -2,6 +2,7 @@ window.onload = function(){
     
     var yyy = document.getElementById('xxx');
     var context = yyy.getContext('2d');
+    var lineWidth = 5;
 
     autoSetCanvasSize(yyy);
 
@@ -29,11 +30,22 @@ window.onload = function(){
     //     eraserEnabled = false;
     //     actions.className = 'actions';
     // }
+    
 
+    //不同颜色区块功能
+    black.onclick = function(){
+        context.fillStyle = 'black';
+        context.strokeStyle = 'black';
+        black.classList.add('active');
+        red.classList.remove('active');
+        green.classList.remove('active');
+        blue.classList.remove('active');
+    }
     red.onclick = function(){
         context.fillStyle = 'red';
         context.strokeStyle = 'red';
         red.classList.add('active');
+        black.classList.remove('active');
         green.classList.remove('active');
         blue.classList.remove('active');
     }
@@ -41,6 +53,7 @@ window.onload = function(){
         context.fillStyle = 'green';
         context.strokeStyle = 'green';
         green.classList.add('active');
+        black.classList.remove('active');
         red.classList.remove('active');
         blue.classList.remove('active');
     }
@@ -48,11 +61,32 @@ window.onload = function(){
         context.fillStyle = 'blue';
         context.strokeStyle = 'blue';
         blue.classList.add('active');
+        black.classList.remove('active');
         green.classList.remove('active');
         red.classList.remove('active');
     }
+    //粗细画笔功能
+    thin.onclick = function(){
+        lineWidth = 5;
+    }
+    thick.onclick = function(){
+        lineWidth = 10;
+    }
+    //清除全屏功能
+    clear.onclick = function(){
+        context.clearRect(0, 0, yyy.width, yyy.height);
+    }
+    //下载保存图片功能
+    download.onclick = function(){
+        var url = yyy.toDataURL('image/png');
+        var a = document.createElement('a');
+        document.body.appendChild(a);
 
-    
+        a.href = url;
+        a.dowmload = "我的作品";
+        a.target = '_blank';
+        a.click();
+    }
 
     /********************************/
 
@@ -191,7 +225,7 @@ window.onload = function(){
         //添加颜色后去掉试验使用色
         //context.strokeStyle = 'black';
         context.moveTo(x1, y1); //起点
-        context.lineWidth = 5;
+        context.lineWidth = lineWidth;
         context.lineTo(x2, y2); //终点
     
         context.stroke();

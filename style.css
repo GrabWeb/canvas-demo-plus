@@ -18,6 +18,7 @@ ul, ol{
  }
 
 body{
+    /* 防止手机端抖动，去除滚动条 */
     overflow: hidden;
 }
 
@@ -52,6 +53,8 @@ body{
     
 }
 
+/* 颜色区块 */
+
 .colors{
     position: fixed;
     top: 60px;
@@ -68,6 +71,9 @@ body{
     transition-duration: 0.3s;
 }
 
+.colors > li.black{
+    background: black;
+}
 .colors > li.red{
     background: red;
 }
@@ -81,4 +87,25 @@ body{
 .colors > li.active{
     box-shadow: 0 0 3px rgba(0, 0, 0, 1);
     transform: scale(1.2);
+}
+
+/* 画笔粗细区块 */
+
+.sizes{
+    position: fixed;
+    right: 20px;
+    top: 10px;
+}
+.sizes > li{
+    margin: 20px 0;
+}
+.sizes > .thin{
+    height: 0;
+    width: 20px;
+    border-top: 3px solid black;
+}
+.sizes > .thick{
+    height: 0;
+    width: 20px;
+    border-top: 6px solid black;
 }
