@@ -8,9 +8,13 @@ ul, ol{
 
 #xxx{
     display: block;
+    position: fixed;/**开启相对于屏幕定位（类似小广告），解决手机端抖动问题**/
+    top: 0;
+    left: 0;
 }
 
-.icon {
+.icon { 
+    /* 此样式为SVG同步的icon网站摘抄 */
     width: 1em; height: 1em;
     vertical-align: -0.15em;
     fill: currentColor;

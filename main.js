@@ -232,5 +232,9 @@ window.onload = function(){
         context.closePath();
 
     }
+
+    document.body.ontouchstart = function(event){
+        event.preventDefault();
+    }
     
 }
