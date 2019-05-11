@@ -78,12 +78,12 @@ window.onload = function(){
     }
     //下载保存图片功能
     download.onclick = function(){
-        var url = yyy.toDataURL('image/png');
+        var url = yyy.toDataURL('image/png');//拿到画面数据
         var a = document.createElement('a');
         document.body.appendChild(a);
 
         a.href = url;
-        a.dowmload = "我的作品";
+        a.download = "我的作品";
         a.target = '_blank';
         a.click();
     }
