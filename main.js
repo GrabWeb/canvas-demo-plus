@@ -5,7 +5,7 @@ window.onload = function(){
 
     autoSetCanvasSize(yyy);
 
-    listenToMouse(yyy);
+    listenToUser(yyy);
 
     /************************************/
 
@@ -41,55 +41,108 @@ window.onload = function(){
         }
     }
 
-    function listenToMouse(canvas){
+
+
+    function listenToUser(canvas){
         
         var using = false;
         var lastPoint = {x: undefined, y: undefined};
-    
-        canvas.onmousedown = function(event){
+
+        //特性检测
+        if(document.body.ontouchstart !== undefined){
+            //触屏设备
+            canvas.ontouchstart = function(event){
+                console.log('开始触摸')
+                //console.log(event)
+                var x = event.touches[0].clientX;
+                var y = event.touches[0].clientY;
+                console.log(x,y)
+                using = true;
+        
+                if(eraserEnabled){
+                    context.clearRect(x-5, y-5, 10, 10);
+                }else{
+                    lastPoint = {'x': x,'y': y};
+                    //drawCircle(x, y, 1);
+                }
+            }
+            canvas.ontouchmove = function(){
+                console.log('触摸移动')
+                var x = event.touches[0].clientX;
+                var y = event.touches[0].clientY;
+                
+                if(!using){return;}//判断提前
+                
+        
+                if(eraserEnabled){
+                    
+                    context.clearRect(x-5, y-5, 10, 10);
+                   
+                    
+                }else{
+                    
+                    var newPoint = {'x': x,'y': y};
+                    //drawCircle(x, y, 1);
+                    drawLine(lastPoint.x, lastPoint.y, newPoint.x, newPoint.y);
+            
+                    //不停更新当前点，防止出现每个点都只和第一点连接
+                    lastPoint = newPoint;
+                    
+                }
+            }
+            canvas.ontouchend = function(){
+                console.log('完毕')
+                using = false;
+            }
+        }else{
+            //非触屏设备
+            canvas.onmousedown = function(event){
            
             
-            var x = event.clientX;
-            var y = event.clientY;
-            using = true;
-    
-            if(eraserEnabled){
-                context.clearRect(x-5, y-5, 10, 10);
-            }else{
-                lastPoint = {'x': x,'y': y};
-                //drawCircle(x, y, 1);
-            }
-    
-        }
-      
-        canvas.onmousemove = function(event){
-            var x = event.clientX;
-            var y = event.clientY;
-            
-            if(!using){return;}//判断提前
-            
-    
-            if(eraserEnabled){
-                
-                context.clearRect(x-5, y-5, 10, 10);
-               
-                
-            }else{
-                
-                var newPoint = {'x': x,'y': y};
-                //drawCircle(x, y, 1);
-                drawLine(lastPoint.x, lastPoint.y, newPoint.x, newPoint.y);
+                var x = event.clientX;
+                var y = event.clientY;
+                using = true;
         
-                //不停更新当前点，防止出现每个点都只和第一点连接
-                lastPoint = newPoint;
-                
+                if(eraserEnabled){
+                    context.clearRect(x-5, y-5, 10, 10);
+                }else{
+                    lastPoint = {'x': x,'y': y};
+                    //drawCircle(x, y, 1);
+                }
+        
             }
-    
+          
+            canvas.onmousemove = function(event){
+                var x = event.clientX;
+                var y = event.clientY;
+                
+                if(!using){return;}//判断提前
+                
+        
+                if(eraserEnabled){
+                    
+                    context.clearRect(x-5, y-5, 10, 10);
+                   
+                    
+                }else{
+                    
+                    var newPoint = {'x': x,'y': y};
+                    //drawCircle(x, y, 1);
+                    drawLine(lastPoint.x, lastPoint.y, newPoint.x, newPoint.y);
+            
+                    //不停更新当前点，防止出现每个点都只和第一点连接
+                    lastPoint = newPoint;
+                    
+                }
+        
+            }
+        
+            canvas.onmouseup = function(event){
+                using = false;
+            }
         }
     
-        canvas.onmouseup = function(event){
-            using = false;
-        }
+        
     }
 
     function drawCircle(x, y, radius){
